@@ -1,0 +1,28 @@
+
+.grey-box {
+    background: #333333;
+    font-size: 12px;
+    padding: 15px; 
+    color: #FFFFFF;
+    font-family: Arial;
+    border-radius: 10px;
+    text-align: left;
+    margin: 10px;
+  }
+  
+  .mini-grey-box {
+    background: #444444;
+    padding: 7px; 
+    color: #FFFFFF;
+    font-family: Arial;
+    border-radius: 7px;
+    text-align: center;
+    display: inline-block;
+    font-size: 12px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+  }
+
+  .holder {
+    display: block;
+  }
