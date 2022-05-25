@@ -7,6 +7,7 @@ import { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 
+import "../css/content";
 
 class TreeContent extends React.Component {
   constructor(props) {
@@ -21,7 +22,7 @@ class TreeContent extends React.Component {
   
   
     return (
-      <div>
+      <div id="contentDiv">
 
         <svg width={width} height={height}>
             
@@ -34,15 +35,21 @@ class TreeContent extends React.Component {
             >
                 {(tree) => (
                 <Group top={0} left={0}>
+                    
                     {tree.links().map((link, i) => (
                     <LinkVertical
+                        
+                        className="fade-in-two"
                         key={i}
                         data={link}
                         stroke="#141414"
                         strokeWidth="1"
                         fill="none"
                     />
+                    
+                    
                     ))}
+                    
 
                     {tree.descendants().map((node, key) => {
                     const width = 110;
@@ -52,37 +59,37 @@ class TreeContent extends React.Component {
                     let top = node.y;
                     let left = node.x;
                     
+        
+                    let depth = Number(node.depth)
+                    let fadeClass = null;
+                    if (depth == 1) {
+                        fadeClass = "fade-in-one";
+                    } else if (depth == 2) {
+                        fadeClass = "fade-in-two";
+                    } else if (depth == 3) {
+                        fadeClass = "fade-in-three";
+                    } 
+
 
                     return (
+                        
                         <Group top={top} left={left} key={key}>   
                         <foreignObject x={-width/2} y={-height/2} width="110" height="100">
-                            <div style={{
-                                width: "17px",
-                                height: "17px",
-                                borderRadius: "0 10px 0 0",
-                                padding: "0px",
-                                float: "right"}}
-                                >
-                            <FontAwesomeIcon icon={faCircleInfo} />
-                            </div>
-                            <div style={{background: "#2a9d8f",
-                                fontSize: "12px",
-                                padding: "13px 5px 13px 5px", 
-                                color: "#FFFFFF",
-                                fontFamily: "Arial",
-                                borderRadius: "10px",
-                                textAlign: "center",
-                                margin: "0px"}}
+                        
+                        <div className={fadeClass} id="nodesDiv">
+                            <div className="nodes-info"> 
+                                <FontAwesomeIcon icon={faCircleInfo} />
+                            </div>                 
+                            <div className="nodes"
                                 onClick = {() => {
                                 setT("new")
                                 }}
                                 >
                                 {node.data.name}
-                            
-                                {t}
-                          
-                                
+                                {node.depth}
+                                {t}   
                             </div>
+                        </div>
                         </foreignObject>       
                         </Group>
                     );

@@ -1,5 +1,7 @@
 
 import React from "react";
+import ReactDOM from 'react-dom';
+
 import Header from "./header";
 import TreeContent from "./content";
 import Description from "./descriptions";
@@ -16,7 +18,8 @@ export default class Main extends React.Component {
     super();
     this.state = {
       black: true,
-      hideRight: false
+      hideRight: false,
+      width: null
     };
   }
 
@@ -41,13 +44,19 @@ export default class Main extends React.Component {
     this.setState({hideRight: !this.state.hideRight})
     let leftClass = document.getElementById("leftClass");
     leftClass.style.width = '100%'
+    // to refresh the tree
+    const placeholder = ReactDOM.createRoot(document.getElementById("treeContent"));
+    placeholder.render(<TreeContent width={"1400"} height={"700"}/>);
+
   }
 
   toSplitScreen(){
-    this.setState({black: !this.state.black})
-    this.setState({hideRight: !this.state.hideRight})
-    let leftClass = document.getElementById("leftClass");
-    leftClass.style.width = '75%'
+    //this.setState({black: !this.state.black})
+    //this.setState({hideRight: !this.state.hideRight})
+    //let leftClass = document.getElementById("leftClass");
+    //leftClass.style.width = '75%'
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(<Main />);
   }
 
   render () {  
@@ -59,15 +68,18 @@ export default class Main extends React.Component {
       <div>
         <Header />
 
+
         <div className="container">  
           
           <div className="left-width" id="leftClass">  
             <SizeMe>{({ size }) => 
               <div style={{width:"100%"}}>
-                <button className={btn_class} onClick={this.screenShift.bind(this)}>
+                <button className={btn_class} id="shiftButton" onClick={this.screenShift.bind(this)}>
                   <FontAwesomeIcon icon={faArrowRightArrowLeft} />
                 </button>
-                <TreeContent width={size.width} height={"700"}/>
+                <div id="treeContent">
+                  <TreeContent width={size.width} height={"700"}/>
+                </div>
               </div>}
             </SizeMe>
           </div>

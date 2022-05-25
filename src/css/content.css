@@ -1,0 +1,52 @@
+.nodes {
+    background: #2a9d8f;
+    font-size: 12px;
+    padding: 13px 5px 13px 5px;
+    color: #FFFFFF;
+    font-family: Arial;
+    border-radius: 10px;
+    text-align: center;
+    margin: 0px;
+}
+
+.nodes-info {
+    width: 17px;
+    height: 17px;
+    border-radius: 0 10px 0 0;
+    padding: 0px;
+    float: right;
+}
+
+.fade-in-one {
+	opacity: 1;
+	animation-name: fadeInOpacity;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in-out;
+	animation-duration: 0.8s;
+}
+
+.fade-in-two {
+	opacity: 1;
+	animation-name: fadeInOpacity;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in-out;
+	animation-duration: 1.6s;
+}
+
+.fade-in-three {
+	opacity: 1;
+	animation-name: fadeInOpacity;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in-out;
+	animation-duration: 2.4s;
+}
+
+
+@keyframes fadeInOpacity {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}

@@ -16,7 +16,7 @@ export default class Header extends React.Component {
         </div>
 
         
-          <div class="search-container">
+          <div className="search-container">
             <form action="/action_page.php">
               <input type="text" placeholder="Search.." name="search"></input>
               <button type="submit"><FontAwesomeIcon icon={faSearch} /></button>
