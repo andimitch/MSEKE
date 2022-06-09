@@ -1,17 +1,17 @@
 
 .grey-box {
-    background: #333333;
+    background: #FFFAFA;
     font-size: 12px;
-    padding: 15px; 
-    color: #FFFFFF;
+    padding: 20px; 
+    color: #333333;
     font-family: Arial;
     border-radius: 10px;
     text-align: left;
-    margin: 10px;
+    margin: 15px;
   }
   
   .mini-grey-box {
-    background: #444444;
+    background: #888181;
     padding: 7px; 
     color: #FFFFFF;
     font-family: Arial;
@@ -20,7 +20,8 @@
     display: inline-block;
     font-size: 12px;
     margin-right: 10px;
-    margin-bottom: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
   }
 
   .holder {

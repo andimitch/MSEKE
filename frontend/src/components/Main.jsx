@@ -1,6 +1,6 @@
 
 import React from "react";
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 
 import Header from "./header";
 import TreeContent from "./content";
@@ -29,9 +29,8 @@ export default class Main extends React.Component {
   }
 
   screenShift() {
-    console.log(this.state.black)
+    //console.log(this.state.black)
     if (this.state.black) { 
-        console.log("here")
         this.toFullScreen();
     }
     else { 
@@ -45,18 +44,34 @@ export default class Main extends React.Component {
     let leftClass = document.getElementById("leftClass");
     leftClass.style.width = '100%'
     // to refresh the tree
-    const placeholder = ReactDOM.createRoot(document.getElementById("treeContent"));
-    placeholder.render(<TreeContent width={"1400"} height={"700"}/>);
+    //const placeholder = document.getElementById("treeContent");
+    //placeholder.render(<TreeContent width={"1400"} height={"700"}/>);
+    //placeholder.
+    this.restartAnimation();
 
   }
 
   toSplitScreen(){
-    //this.setState({black: !this.state.black})
-    //this.setState({hideRight: !this.state.hideRight})
-    //let leftClass = document.getElementById("leftClass");
-    //leftClass.style.width = '75%'
-    const root = ReactDOM.createRoot(document.getElementById("root"));
-    root.render(<Main />);
+    this.setState({black: !this.state.black})
+    this.setState({hideRight: !this.state.hideRight})
+    let leftClass = document.getElementById("leftClass");
+    leftClass.style.width = '75%'
+    this.restartAnimation();
+    //const root = ReactDOM.createRoot(document.getElementById("root"));
+    //root.render(<Main />);
+  }
+
+  restartAnimation() {
+    let nodes1 = document.querySelectorAll(".fade-in-one");
+    let nodes2 = document.querySelectorAll(".fade-in-two");
+    let nodes3 = document.querySelectorAll(".fade-in-three");
+
+    let myArray = Array.from(nodes1).concat(Array.from(nodes2), Array.from(nodes3))
+    for (let i = 0; i < myArray.length; i++) {
+      let node = myArray[i]
+      node.style.animationName = "None";
+      requestAnimationFrame(() => {node.style.animationName = ""} );
+    }
   }
 
   render () {  
@@ -69,7 +84,7 @@ export default class Main extends React.Component {
         <Header />
 
 
-        <div className="container">  
+        <div className="container" id="body">  
           
           <div className="left-width" id="leftClass">  
             <SizeMe>{({ size }) => 
