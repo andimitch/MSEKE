@@ -7,8 +7,10 @@ import { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 import { Icon } from '@iconify/react';
+import { NodeGroup } from 'react-move'
 
 import "../css/content";
+import restartAnimation from "./restartAnimation";
 
 import {stratify} from 'd3-hierarchy';
 
@@ -21,7 +23,7 @@ const links = [
     { name: "grandchild1", parent: "child1" },
     { name: "grandchild2", parent: "child1" },
     { name: "grandchild3", parent: "child2" },
-    { name: "greatgrandchild1", parent: "grandchild2" }
+    { name: "great grand child one", parent: "grandchild2" }
 ];
 
 var root = stratify()
@@ -33,9 +35,32 @@ var root = stratify()
 class TreeContent extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+        select: 0,
+        hidden: null
+    }
   }
 
-  render (){
+  setSelected(key) {
+    this.setState({select: key})
+  }
+
+  setBack = () => {
+    console.log("here")
+    this.setState({hidden: null})
+    this.setState({select: 0})
+  }
+
+  handleDoubleClick(key) {
+    console.log("Double Button Click Activated");
+    this.setState({hidden: key})
+    console.log(this.state.hidden)
+    setTimeout(function(){ restartAnimation(); }, 2000);  // 2 second delay
+    setTimeout(this.setBack, 2000);
+    
+  }
+
+  render () {
     const width = Number(this.props.width);
     const height = Number(this.props.height);
     const innerWidth = width - 60;
@@ -43,6 +68,7 @@ class TreeContent extends React.Component {
   
   
     return (
+
       <div id="contentDiv">
 
         <svg width={width} height={height}>
@@ -57,15 +83,16 @@ class TreeContent extends React.Component {
                 {(tree) => (
                 <Group top={0} left={0}>
                     
+                    
                     {tree.links().map((link, i) => (
                     <LinkVertical
-                        
                         className="fade-in-two"
                         key={i}
                         data={link}
                         stroke="#141414"
                         strokeWidth="1"
                         fill="none"
+                        display={this.state.hidden == null ? "block" : "none"}
                     />
                     
                     
@@ -91,20 +118,25 @@ class TreeContent extends React.Component {
                         fadeClass = "fade-in-three";
                     } 
 
-
+                    var selected = (key == this.state.select) ? "pink": "black";
+                    var isHidden = (key == this.state.hidden || this.state.hidden == null) ? "block": "none";
+                    
+                  
                     return (
+                        <foreignObject x={left-width/2} y={top-height/2} width="110" height="100" className="heya">
+                   
+
+                        <div className={fadeClass} >
                         
-                        <Group top={top} left={left} key={key}>   
-                        <foreignObject x={-width/2} y={-height/2} width="110" height="100">
-                        
-                        <div className={fadeClass} id="nodesDiv">
-                            <div className="nodes-info"> 
-                            <Icon icon="carbon:text-indent-more" width="1em" color="white"/>
-                            </div>                 
                             <div className="nodes"
+                                style={{
+                                    background: selected,
+                                    display: isHidden,
+                                    }}
                                 onClick = {() => {
-                                setT("new")
-                                }}
+                                    setT("new") 
+                                    this.setSelected(key)}}
+                                onDoubleClick = {() => {this.handleDoubleClick(key)}}
                                 >
                         
                                 {node.data.id}
@@ -114,8 +146,10 @@ class TreeContent extends React.Component {
                             </div>
                         </div>
                         </foreignObject>       
-                        </Group>
-                    );
+                        //</Group>
+                        
+                        
+                    ); 
                     })}
                 </Group>
                 )}
@@ -128,3 +162,9 @@ class TreeContent extends React.Component {
 }
 
 export default TreeContent;
+
+//<foreignObject x={left-width/2} y={top-height/2} width="110" height="100">
+     //<Group top={top} left={left} key={key}> 
+                       
+                         
+                        //<foreignObject x={-width/2} y={-height/2} width="110" height="100">

@@ -1,7 +1,7 @@
 
 import React from "react";
 import ReactDOM from 'react-dom/client';
-
+import restartAnimation from "./restartAnimation";
 import Header from "./header";
 import TreeContent from "./content";
 import Description from "./descriptions";
@@ -47,7 +47,7 @@ export default class Main extends React.Component {
     //const placeholder = document.getElementById("treeContent");
     //placeholder.render(<TreeContent width={"1400"} height={"700"}/>);
     //placeholder.
-    this.restartAnimation();
+    restartAnimation();
 
   }
 
@@ -56,24 +56,12 @@ export default class Main extends React.Component {
     this.setState({hideRight: !this.state.hideRight})
     let leftClass = document.getElementById("leftClass");
     leftClass.style.width = '75%'
-    this.restartAnimation();
+    restartAnimation();
     //const root = ReactDOM.createRoot(document.getElementById("root"));
     //root.render(<Main />);
   }
 
-  restartAnimation() {
-    let nodes1 = document.querySelectorAll(".fade-in-one");
-    let nodes2 = document.querySelectorAll(".fade-in-two");
-    let nodes3 = document.querySelectorAll(".fade-in-three");
-
-    let myArray = Array.from(nodes1).concat(Array.from(nodes2), Array.from(nodes3))
-    for (let i = 0; i < myArray.length; i++) {
-      let node = myArray[i]
-      node.style.animationName = "None";
-      requestAnimationFrame(() => {node.style.animationName = ""} );
-    }
-  }
-
+  
   render () {  
     let btn_class = this.state.black ? "blackButton" : "whiteButton";  
     let right_div_class = this.state.hideRight ? "dont-show" : "initial-right-width";  

@@ -45,7 +45,7 @@ async function run() {
       
       var arr = [root].concat(children, grand_children, great_grand_children);
     
-      //console.log(arr);
+      console.log(arr);
 
       
     } catch(err) {

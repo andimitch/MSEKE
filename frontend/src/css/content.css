@@ -1,5 +1,5 @@
 .nodes {
-    background: #333333;
+	position: relative;
     font-size: 12px;
     padding: 13px 5px 13px 5px;
     color: #FFFFFF;
@@ -7,7 +7,18 @@
     border-radius: 10px;
     text-align: center;
     margin: 0px;
+	animation: mymove 2s ease-in;
+	z-index: 100;
 }
+
+/* .heya {
+	background-color: aqua;	
+} */
+
+@keyframes mymove {
+	from {top: 20px;}
+	to {top: 0px;}
+  }
 
 .nodes-info {
     width: 17px;
